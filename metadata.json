@@ -1,0 +1,5 @@
+{
+  "name": "Elementor Email Template Builder",
+  "description": "A visual builder for Elementor Form email templates. Customize colors, fields, and fonts, then export clean, responsive HTML.",
+  "requestFramePermissions": []
+}
