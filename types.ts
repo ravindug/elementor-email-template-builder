@@ -4,11 +4,19 @@ export interface Field {
   shortcode: string;
 }
 
+export type SocialPlatform = 'facebook' | 'twitter' | 'instagram' | 'linkedin' | 'youtube' | 'website';
+
+export interface SocialLink {
+  id: string;
+  platform: SocialPlatform;
+  url: string;
+}
+
 export interface TemplateConfig {
   logoUrl: string;
   logoWidth: string;
   title: string;
-  
+
   // Layout
   density: 'compact' | 'normal' | 'spacious';
 
@@ -28,15 +36,18 @@ export interface TemplateConfig {
   headerColor: string;
   borderColor: string;
   accentColor: string; // Used for alternating rows usually
-  
+
   // Typography
   fontFamily: string;
-  
+
   // Content
   footerText: string;
-  
+
   // The Fields
   fields: Field[];
+
+  // Social Media
+  socialLinks: SocialLink[];
 }
 
 export const INITIAL_FIELDS: Field[] = [
@@ -68,4 +79,5 @@ export const INITIAL_CONFIG: TemplateConfig = {
   fontFamily: 'Arial, Helvetica, sans-serif',
   footerText: 'Submitted via your website service form.',
   fields: INITIAL_FIELDS,
+  socialLinks: [],
 };

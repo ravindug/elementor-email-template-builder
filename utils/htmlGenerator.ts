@@ -12,9 +12,9 @@ export const generateEmailHtml = (config: TemplateConfig): string => {
   const padding = getPadding(config.density);
 
   const rows = config.fields.map((field, index) => {
-    const isEven = index % 2 !== 0; 
+    const isEven = index % 2 !== 0;
     const bgStyle = isEven ? `background-color:${config.accentColor};` : '';
-    
+
     return `
       <tr style="${bgStyle}">
         <td style="padding:${padding};font-weight:600;width:40%;color:${config.textColor};border-bottom:1px solid ${config.borderColor};vertical-align:top;">${field.label}</td>
@@ -51,6 +51,17 @@ export const generateEmailHtml = (config: TemplateConfig): string => {
       </table>
 
       ${ctaHtml}
+      
+      <!-- Social Links -->
+      ${config.socialLinks && config.socialLinks.length > 0 ? `
+        <div style="text-align:center;margin-top:24px;padding-top:24px;border-top:1px solid ${config.borderColor};">
+           ${config.socialLinks.map(link => `
+             <a href="${link.url}" style="display:inline-block;margin:0 8px;color:#9ca3af;text-decoration:none;font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:bold;">
+               ${link.platform}
+             </a>
+           `).join('')}
+        </div>
+      ` : ''}
 
       <p style="margin-top:24px;font-size:12px;color:#6b7280;text-align:center;line-height:1.5;">
         ${config.footerText}
