@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TemplateConfig, SocialPlatform } from '../types.ts';
 import { PRESETS } from '../constants.ts';
 import { FieldManager } from './FieldManager.tsx';
-import { Palette, Type, Layout, Settings, Rows, Zap, MousePointerClick, Plus, Trash2, Facebook, Twitter, Instagram, Linkedin, Globe, Youtube } from 'lucide-react';
+import { Palette, Type, Layout, Settings, Rows, Zap, MousePointerClick, Plus, Trash2, Facebook, Twitter, Instagram, Linkedin, Globe, Youtube, Upload, Info } from 'lucide-react';
 
 interface ControlsProps {
   config: TemplateConfig;
@@ -51,6 +51,19 @@ const TabButton = ({ active, label, icon: Icon, onClick }: any) => (
 
 export const Controls: React.FC<ControlsProps> = ({ config, onChange }) => {
   const [activeTab, setActiveTab] = useState<'content' | 'design' | 'fields'>('content');
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        update('logoUrl', base64String);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const update = (key: keyof TemplateConfig, value: any) => {
     onChange({ ...config, [key]: value });
@@ -124,6 +137,30 @@ export const Controls: React.FC<ControlsProps> = ({ config, onChange }) => {
                 className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm bg-white text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 outline-none mb-2"
                 placeholder="https://..."
               />
+
+              <div className="flex gap-2 items-center mb-2">
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleImageUpload}
+                  className="hidden"
+                  accept="image/*"
+                />
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-xs font-medium transition-colors"
+                >
+                  <Upload size={12} />
+                  Upload Image
+                </button>
+                <div className="relative group">
+                  <Info size={14} className="text-gray-400 hover:text-blue-500 cursor-help" />
+                  <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-48 p-2 bg-gray-800 text-white text-[10px] rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-center">
+                    Warning: Uploaded images (Base64) may not display in some email clients like Outlook. External URLs are recommended.
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full border-4 border-transparent border-t-gray-800"></div>
+                  </div>
+                </div>
+              </div>
               <div className="flex gap-2 items-center">
                 <label className="text-xs text-gray-500">Width (px):</label>
                 <input
