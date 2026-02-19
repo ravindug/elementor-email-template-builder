@@ -22,7 +22,12 @@ export default function App() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        // Ensure thanks_you fields are always synced with service fields on load
+        if (parsed.service && parsed.thank_you) {
+          parsed.thank_you.fields = parsed.service.fields;
+        }
+        return parsed;
       }
       // Migration attempt from v1
       const savedV1 = localStorage.getItem('elementor_email_builder_v1');
