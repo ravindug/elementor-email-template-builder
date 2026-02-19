@@ -59,7 +59,7 @@ export const INITIAL_FIELDS: Field[] = [
 ];
 
 export const INITIAL_CONFIG: TemplateConfig = {
-  logoUrl: 'https://indigo-echidna-621194.hostingersite.com/wp-content/uploads/2026/01/Krystal-cleaning-Inc-Logo-2048x374.webp',
+  logoUrl: '', // Reset to empty as per user request
   logoWidth: '150',
   title: 'New Service Request',
   density: 'normal',
@@ -79,5 +79,33 @@ export const INITIAL_CONFIG: TemplateConfig = {
   fontFamily: 'Arial, Helvetica, sans-serif',
   footerText: 'Submitted via your website service form.',
   fields: INITIAL_FIELDS,
+  socialLinks: [],
+};
+
+export const THANK_YOU_INITIAL_CONFIG: TemplateConfig = {
+  logoUrl: '', // Reset to empty as per user request
+  logoWidth: '150',
+  title: 'Thank You for Your Order!',
+  density: 'normal',
+  cta: {
+    enabled: true,
+    text: 'Visit Website',
+    url: 'https://example.com',
+    bgColor: '#15803d',
+    textColor: '#ffffff',
+  },
+  bodyBgColor: '#f0fdf4',
+  cardBgColor: '#ffffff',
+  textColor: '#374151',
+  headerColor: '#15803d',
+  borderColor: '#e5e7eb',
+  accentColor: '#f0fdf4',
+  fontFamily: 'Arial, Helvetica, sans-serif',
+  footerText: 'We appreciate your business. If you have any feedback, please reply to this email.',
+  fields: [
+    { id: '1', label: 'Order ID', shortcode: '#123456' },
+    { id: '2', label: 'Date', shortcode: 'Feb 19, 2026' },
+    { id: '3', label: 'Total', shortcode: '$150.00' },
+  ],
   socialLinks: [],
 };

@@ -146,5 +146,27 @@ export const TEMPLATES: { name: string; thumbnail: string; config: Partial<Templ
                 { id: '4', label: 'Message', shortcode: 'I need help with...' },
             ]
         }
+    },
+    {
+        name: 'Thank You Email',
+        thumbnail: 'https://placehold.co/400x300/f0fdf4/15803d?text=Thank+You',
+        config: {
+            title: 'Thank You for Your Order!',
+            bodyBgColor: '#f0fdf4', // green-50
+            headerColor: '#15803d', // green-700
+            cta: {
+                enabled: true,
+                text: 'Visit Website',
+                url: 'https://example.com',
+                bgColor: '#15803d',
+                textColor: '#ffffff'
+            },
+            footerText: 'We appreciate your business. If you have any feedback, please reply to this email.',
+            fields: [
+                { id: '1', label: 'Order ID', shortcode: '#123456' },
+                { id: '2', label: 'Date', shortcode: 'Feb 19, 2026' },
+                { id: '3', label: 'Total', shortcode: '$150.00' },
+            ]
+        }
     }
 ];
