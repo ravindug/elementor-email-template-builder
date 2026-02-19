@@ -50,10 +50,25 @@ export default function App() {
   const currentConfig = configs[activeTab];
 
   const updateCurrentConfig = (newConfig: TemplateConfig | ((prev: TemplateConfig) => TemplateConfig)) => {
-    setConfigs(prev => ({
-      ...prev,
-      [activeTab]: typeof newConfig === 'function' ? newConfig(prev[activeTab]) : newConfig
-    }));
+    setConfigs(prev => {
+      const current = prev[activeTab];
+      const updated = typeof newConfig === 'function' ? newConfig(current) : newConfig;
+
+      const newConfigs = {
+        ...prev,
+        [activeTab]: updated
+      };
+
+      // Automatically sync fields from 'service' to 'thank_you' if functionality
+      if (activeTab === 'service' && updated.fields !== current.fields) {
+        newConfigs.thank_you = {
+          ...prev.thank_you,
+          fields: updated.fields
+        };
+      }
+
+      return newConfigs;
+    });
   };
 
   // Persist to local storage whenever config changes
@@ -150,8 +165,8 @@ export default function App() {
             <button
               onClick={() => setActiveTab('service')}
               className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors border-b-2 ${activeTab === 'service'
-                  ? 'border-blue-600 text-blue-600 bg-white'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-100'
+                ? 'border-blue-600 text-blue-600 bg-white'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-100'
                 }`}
             >
               <MessageSquare size={16} />
@@ -161,8 +176,8 @@ export default function App() {
             <button
               onClick={() => setActiveTab('thank_you')}
               className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors border-b-2 ${activeTab === 'thank_you'
-                  ? 'border-green-600 text-green-600 bg-white'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-100'
+                ? 'border-green-600 text-green-600 bg-white'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-100'
                 }`}
             >
               <Mail size={16} />
