@@ -64,6 +64,16 @@ export const Preview: React.FC<PreviewProps> = ({ config }) => {
               {config.title}
             </h2>
 
+            {/* Description */}
+            {config.description && (
+              <p
+                className="mb-6 text-base text-center leading-relaxed whitespace-pre-wrap"
+                style={{ color: config.textColor }}
+              >
+                {config.description}
+              </p>
+            )}
+
             <table className="w-full border-collapse text-sm" style={{ color: config.textColor }}>
               <tbody>
                 {config.fields.map((field, index) => {

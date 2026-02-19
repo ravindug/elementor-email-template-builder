@@ -44,6 +44,12 @@ export const generateEmailHtml = (config: TemplateConfig): string => {
         ${config.title}
       </h2>
 
+      ${config.description ? `
+        <p style="margin:0 0 24px 0;font-size:16px;line-height:1.6;color:${config.textColor};text-align:center;white-space:pre-wrap;">
+          ${config.description}
+        </p>
+      ` : ''}
+
       <table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;color:${config.textColor};border-collapse:collapse;width:100%;">
         <tbody>
           ${rows}

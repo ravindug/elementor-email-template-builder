@@ -259,6 +259,17 @@ export const Controls: React.FC<ControlsProps> = ({ config, onChange }) => {
             </div>
 
             <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Description (Body Text)</label>
+              <textarea
+                value={config.description}
+                onChange={(e) => update('description', e.target.value)}
+                rows={4}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm bg-white text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 outline-none mb-4"
+                placeholder="Enter email body description..."
+              />
+            </div>
+
+            <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Footer Text</label>
               <textarea
                 value={config.footerText}

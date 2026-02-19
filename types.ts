@@ -41,6 +41,7 @@ export interface TemplateConfig {
   fontFamily: string;
 
   // Content
+  description: string;
   footerText: string;
 
   // The Fields
@@ -77,6 +78,7 @@ export const INITIAL_CONFIG: TemplateConfig = {
   borderColor: '#e5e7eb',
   accentColor: '#f9fafb',
   fontFamily: 'Arial, Helvetica, sans-serif',
+  description: 'Thank you for contacting us. We have received your service request and will get back to you shortly.',
   footerText: 'Submitted via your website service form.',
   fields: INITIAL_FIELDS,
   socialLinks: [],
@@ -101,6 +103,7 @@ export const THANK_YOU_INITIAL_CONFIG: TemplateConfig = {
   borderColor: '#e5e7eb',
   accentColor: '#f0fdf4',
   fontFamily: 'Arial, Helvetica, sans-serif',
+  description: 'We have received your order and are processing it. Below are the details:',
   footerText: 'We appreciate your business. If you have any feedback, please reply to this email.',
   fields: INITIAL_FIELDS,
   socialLinks: [],
