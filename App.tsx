@@ -126,6 +126,45 @@ export default function App() {
     }
   };
 
+  const handleTemplateSelect = (template: Partial<TemplateConfig>) => {
+    setConfigs(prev => {
+      // Define what to sync (Styles only)
+      // We deliberately exclude: fields, title, logoUrl, logoWidth, footerText, socialLinks, and CTA content
+      const styleUpdates: Partial<TemplateConfig> = {
+        bodyBgColor: template.bodyBgColor,
+        cardBgColor: template.cardBgColor,
+        textColor: template.textColor,
+        headerColor: template.headerColor,
+        borderColor: template.borderColor,
+        accentColor: template.accentColor,
+        fontFamily: template.fontFamily,
+        density: template.density,
+      };
+
+      // Helper to apply styles while preserving content
+      const applyStyle = (current: TemplateConfig) => ({
+        ...current,
+        ...styleUpdates,
+        // config.cta might be partial in the template, so we merge carefully
+        cta: {
+          ...current.cta,
+          bgColor: template.cta?.bgColor ?? current.cta.bgColor,
+          textColor: template.cta?.textColor ?? current.cta.textColor,
+          // Preserve content properties
+          enabled: current.cta.enabled,
+          text: current.cta.text,
+          url: current.cta.url,
+        }
+      });
+
+      return {
+        service: applyStyle(prev.service),
+        thank_you: applyStyle(prev.thank_you)
+      };
+    });
+    setIsTemplatesOpen(false);
+  };
+
   return (
     <div className="flex h-screen w-full flex-col md:flex-row overflow-hidden font-sans">
 
@@ -251,7 +290,7 @@ export default function App() {
       <TemplatesModal
         isOpen={isTemplatesOpen}
         onClose={() => setIsTemplatesOpen(false)}
-        onSelect={(newConfig) => updateCurrentConfig({ ...currentConfig, ...newConfig })}
+        onSelect={handleTemplateSelect}
       />
 
     </div >
